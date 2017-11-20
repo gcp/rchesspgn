@@ -21,7 +21,7 @@
         "128": "knight.png"
     },
     "manifest_version": 2,
-    "name": "Reddit PGN viewer.",
+    "name": "Reddit PGN viewer",
     "permissions": [
         "http://*.reddit.com/*"
     ],
