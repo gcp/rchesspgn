@@ -1,0 +1,19 @@
+.ct-back, .ct-forward, .ct-start, .ct-end, .ct-play, .ct-stop{
+	display: inline;
+}
+.ct-board-container{
+	float: left;
+}
+.rchess-moves{
+	display: block;
+	margin-right: 10px;
+	margin-top: 5px;
+	max-height: 305px;
+	overflow-y: scroll;
+}
+#chesstempolink{
+	position: fixed;
+	right: 2px;
+	bottom: 2px;
+	background: white;
+}
