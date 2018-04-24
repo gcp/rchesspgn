@@ -6,7 +6,7 @@
                 "rchess.css"
             ],
             "js": [
-                "jquery.js",
+                "jquery-3.3.1.slim.min.js",
                 "pgnyui.js",
                 "pgnviewer.js",
                 "rchesspgn.js"
@@ -25,5 +25,5 @@
     "permissions": [
         "http://*.reddit.com/*"
     ],
-    "version": "1.94"
+    "version": "1.95"
 }
