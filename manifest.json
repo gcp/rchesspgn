@@ -25,5 +25,5 @@
     "permissions": [
         "http://*.reddit.com/*"
     ],
-    "version": "1.95"
+    "version": "1.95.1"
 }
