@@ -1,7 +1,7 @@
 var numboards = 0;
 
 function pgnify(obj) {
-	$(obj).find('.usertext-body, .faukuq-10').each(function () {
+	$(obj).find('.usertext-body, .Post, .Comment').each(function () {
 		var text = this.innerHTML;
 
 		var start = text.indexOf('[pgn]');
