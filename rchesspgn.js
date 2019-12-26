@@ -1,6 +1,6 @@
 var boardcounter = 0;
 
-function pgnify(obj) {
+function pgnify(obj, piecetheme, boardtheme) {
 	var elements = obj.querySelectorAll('.usertext-body, .Post, .Comment');
 	Array.prototype.forEach.call(elements, function (element, _i) {
 		let text = element.innerHTML;
@@ -44,12 +44,12 @@ function pgnify(obj) {
 				pgnstr = pgnstr.replace(/<\/?[^>]+(>|$)/g, "");
 				pgnstr = pgnstr.trim();
 
-				styleclass = "merida ";
-				styleclass += "zeit ";
+				styleclass = boardtheme + " ";
+				styleclass += piecetheme + " ";
 				styleclass += "left";
 
 				newstr = "<div id=\"board" + boardcounter + "\"";
-				newstr +=  "class=\"" + styleclass + "\"></div>";
+				newstr += "class=\"" + styleclass + "\" width=\"100%\"></div>";
 				element.innerHTML = element.innerHTML.replace(
 					/\[pgn\][\s\S]*?\[\/pgn\]/im,
 					newstr
@@ -63,7 +63,9 @@ function pgnify(obj) {
 					showFen: true,
 					coordsInner: false,
 					headers: true,
-					movesHeight: '400px'
+					movesHeight: '400px',
+					width: '300px',
+					movesWidth: 'calc(100% - 365px)'
 				};
 				pgnView('board' + boardcounter, config);
 				boardcounter++;
@@ -78,9 +80,31 @@ function pgnify(obj) {
 	});
 }
 
-pgnify(document);
+function onGot(item) {
+	let piecetheme = item.piecetheme;
+	let boardtheme = item.boardtheme;
+	pgnify(document, piecetheme, boardtheme);
 
-document.addEventListener('DOMNodeInserted', function (e) {
-	if (!e) e = window.event;
-	pgnify(e.target);
+	// Watch for anything added dynamically so we can add
+	// the board there as well.
+	var observer = new MutationObserver(function (mutations) {
+		mutations.forEach(function (mutation) {
+			let nodes = Array.prototype.slice.call(mutation.addedNodes);
+			nodes.forEach(function (node) {
+				pgnify(node, piecetheme, boardtheme);
+			});
+		});
+	});
+	observer.observe(document, {
+		childList: true,
+		subtree: true,
+		attributes: false,
+		characterData: false,
+	});
+}
+
+let getting = browser.storage.sync.get({
+	piecetheme: "merida",
+	boardtheme: "blue"
 });
+getting.then(onGot, null);
