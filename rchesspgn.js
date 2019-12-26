@@ -44,26 +44,26 @@ function pgnify(obj) {
 				pgnstr = pgnstr.replace(/<\/?[^>]+(>|$)/g, "");
 				pgnstr = pgnstr.trim();
 
-				newstr = "<div id=\"board" + boardcounter + "\"></div>";
+				styleclass = "merida ";
+				styleclass += "zeit ";
+				styleclass += "left";
+
+				newstr = "<div id=\"board" + boardcounter + "\"";
+				newstr +=  "class=\"" + styleclass + "\"></div>";
 				element.innerHTML = element.innerHTML.replace(
 					/\[pgn\][\s\S]*?\[\/pgn\]/im,
 					newstr
 				);
 
-				config =  {
+				config = {
 					pgn: pgnstr,
-					pieceStyle: 'merida',
-					showNotation: true,
-					orientation: 'white',
-					theme: 'default',
-					locale: 'en',
-					timerTime: '',
 					layout: 'left',
+					showNotation: true,
+					locale: 'en',
 					showFen: true,
-					coordsInner: true,
+					coordsInner: false,
 					headers: true,
-					coordsFactor: '1.0',
-					colorMarker: ''
+					movesHeight: '400px'
 				};
 				pgnView('board' + boardcounter, config);
 				boardcounter++;
