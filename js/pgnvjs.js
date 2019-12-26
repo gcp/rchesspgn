@@ -3721,6 +3721,10 @@ var I18n = function (_EventEmitter) {
   };
 
   I18n.prototype.use = function use(module) {
+    if (!module) {
+      return this;
+    }
+
     if (module.type === 'backend') {
       this.modules.backend = module;
     }
