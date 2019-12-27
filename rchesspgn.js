@@ -101,6 +101,9 @@ function injectBoard(element, config, pgnstr) {
 }
 
 function pgnify(obj, config) {
+	if (!("querySelectorAll" in obj)) {
+		return;
+	}
 	var elements = obj.querySelectorAll('.usertext-body, .Post, .Comment');
 	Array.prototype.forEach.call(elements, function (element, _i) {
 		let text = element.innerHTML;
@@ -150,7 +153,7 @@ function onGot(item) {
 	});
 }
 
-let getting = browser.storage.sync.get({
+let getting = browser.storage.local.get({
 	piecetheme: "wikipedia",
 	boardtheme: "blue",
 	boardsize: 300

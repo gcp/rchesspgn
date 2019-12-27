@@ -1,6 +1,6 @@
 function saveOptions(e) {
     e.preventDefault();
-    browser.storage.sync.set({
+    browser.storage.local.set({
         piecetheme: document.querySelector("#piecetheme").value,
         boardtheme: document.querySelector("#boardtheme").value,
         boardsize: document.querySelector("#boardsize").value
@@ -22,7 +22,7 @@ function restoreOptions() {
         console.log(`Error: ${error}`);
     }
 
-    var getting = browser.storage.sync.get(
+    var getting = browser.storage.local.get(
         ["piecetheme", "boardtheme", "boardsize"]
     );
     getting.then(setCurrentChoice, onError);
