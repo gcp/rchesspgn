@@ -34,6 +34,9 @@ function recoverPgnString(pgnstr) {
 		}
 
 		pgnstr = pgnstr.replace(/<\/?[^>]+(>|$)/g, "");
+		// Remove zero width spaces
+		pgnstr = pgnstr.replace(/[\u200B-\u200D\uFEFF]/g, '');
+		// Remove space at ends
 		pgnstr = pgnstr.trim();
 	} else {
 		// Game is too short to usefully display.
@@ -62,6 +65,11 @@ function injectBoard(element, config, pgnstr) {
 		/\[pgn\][\s\S]*?\[\/pgn\]/im,
 		boarddiv
 	);
+
+	// Extract a FEN/Setup tag because PgnViewerJS doesn't
+	// handle it.
+	let FENRegex = /\[FEN "(.*?)"\]/m;
+	let FENSetup = FENRegex.exec(pgnstr);
 
 	// Calculate the configuation for PgnViewerJS
 	let width = config.boardsize + "px";
@@ -96,6 +104,10 @@ function injectBoard(element, config, pgnstr) {
 			width: width,
 			movesWidth: movesWidth
 		};
+		// Add FEN if present.
+		if (FENSetup && FENSetup[1]) {
+			pgnViewConfig.position = FENSetup[1];
+		}
 		pgnView(myboardid, pgnViewConfig);
 	});
 }
