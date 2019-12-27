@@ -13,19 +13,43 @@
     <section id="Theming">
         <h2>Theming</h2>
         <div>
-            <h3>Pieces</h3>
-            <p>Possible piece themes: merida, wikipedia, alpha, uscf, case, condal, maya, leipzig, chesscom, beyer</p>
-            <label for="piecetheme">Piece Theme: </label>
-            <input type="text" id="piecetheme">
-            <h3>Board</h3>
-            <p>Possible board themes: zeit, blue, green, falken, beyer, sportverlag, chesscom, informator</p>
-            <label for="boardtheme">Board Theme: </label>
-            <input type="text" id="boardtheme">
+            <ul>
+                <li>
+                    <label for="piecetheme">Piece Theme: </label>
+                    <select id="piecetheme">
+                        <option value="wikipedia">Wikipedia</option>
+                        <option value="merida">Merida</option>
+                        <option value="alpha">Alpha</option>
+                        <option value="uscf">USCF</option>
+                        <option value="case">Case</option>
+                        <option value="condal">Condal</option>
+                        <option value="maya">Maya</option>
+                        <option value="leipzig">Leipzig</option>
+                        <option value="chesscom">chess.com</option>
+                        <option value="beyer">Beyer</option>
+                    </select>
+                </li>
+                <li>
+                    <label for="boardtheme">Board Theme: </label>
+                    <select id="boardtheme">
+                        <option value="blue">Blue</option>
+                        <option value="zeit">Zeit</option>
+                        <option value="green">Green</option>
+                        <option value="falken">Falken</option>
+                        <option value="beyer">Beyer</option>
+                        <option value="sportverlag">Sportverlag</option>
+                        <option value="chesscom">chess.com</option>
+                        <option value="informator">Informator</option>
+                    </select>
+                </li>
+                <li>
+                    <label for="boardsize">Board Size (px): </label>
+                    <input type="text" id="boardsize">
+                </li>
+            </ul>
         </div>
-        <p>
-            <button id="savesettings" type="button">Save Settings</button>
-        </p>
     </section>
 
     <script src="options.js"></script>
+
 </html>

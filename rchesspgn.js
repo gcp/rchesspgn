@@ -1,6 +1,6 @@
 var boardcounter = 0;
 
-function pgnify(obj, piecetheme, boardtheme) {
+function pgnify(obj, config) {
 	var elements = obj.querySelectorAll('.usertext-body, .Post, .Comment');
 	Array.prototype.forEach.call(elements, function (element, _i) {
 		let text = element.innerHTML;
@@ -44,30 +44,33 @@ function pgnify(obj, piecetheme, boardtheme) {
 				pgnstr = pgnstr.replace(/<\/?[^>]+(>|$)/g, "");
 				pgnstr = pgnstr.trim();
 
-				styleclass = boardtheme + " ";
-				styleclass += piecetheme + " ";
-				styleclass += "left";
-
 				newstr = "<div id=\"board" + boardcounter + "\"";
-				newstr += "class=\"" + styleclass + "\" width=\"100%\"></div>";
+				newstr += " width=\"100%\"></div>";
 				element.innerHTML = element.innerHTML.replace(
 					/\[pgn\][\s\S]*?\[\/pgn\]/im,
 					newstr
 				);
 
-				config = {
+				let width = config.boardsize + "px";
+				let movesWidth = "calc(100% - "
+					+ (parseInt(config.boardsize) + 65) + "px)";
+				let movesHeight = (parseInt(config.boardsize) + 100) + "px";
+
+				pgnViewConfig = {
 					pgn: pgnstr,
+					pieceStyle: config.piecetheme,
+					theme: config.boardtheme,
 					layout: 'left',
 					showNotation: true,
 					locale: 'en',
 					showFen: true,
 					coordsInner: false,
 					headers: true,
-					movesHeight: '400px',
-					width: '300px',
-					movesWidth: 'calc(100% - 365px)'
+					movesHeight: movesHeight,
+					width: width,
+					movesWidth: movesWidth
 				};
-				pgnView('board' + boardcounter, config);
+				pgnView('board' + boardcounter, pgnViewConfig);
 				boardcounter++;
 			} else {
 				element.innerHTML = element.innerHTML.replace(/\[pgn\][\s\S]*?\[\/pgn\]/im, "[ pgn]" + pgnstr + "[ /pgn] (sans spaces)");
@@ -81,9 +84,12 @@ function pgnify(obj, piecetheme, boardtheme) {
 }
 
 function onGot(item) {
-	let piecetheme = item.piecetheme;
-	let boardtheme = item.boardtheme;
-	pgnify(document, piecetheme, boardtheme);
+	let config = {
+		piecetheme: item.piecetheme,
+		boardtheme: item.boardtheme,
+		boardsize: item.boardsize
+	};
+	pgnify(document, config);
 
 	// Watch for anything added dynamically so we can add
 	// the board there as well.
@@ -91,7 +97,7 @@ function onGot(item) {
 		mutations.forEach(function (mutation) {
 			let nodes = Array.prototype.slice.call(mutation.addedNodes);
 			nodes.forEach(function (node) {
-				pgnify(node, piecetheme, boardtheme);
+				pgnify(node, config);
 			});
 		});
 	});
@@ -104,7 +110,8 @@ function onGot(item) {
 }
 
 let getting = browser.storage.sync.get({
-	piecetheme: "merida",
-	boardtheme: "blue"
+	piecetheme: "wikipedia",
+	boardtheme: "blue",
+	boardsize: 300
 });
 getting.then(onGot, null);
