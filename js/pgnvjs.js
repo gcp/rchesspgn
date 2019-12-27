@@ -3721,10 +3721,6 @@ var I18n = function (_EventEmitter) {
   };
 
   I18n.prototype.use = function use(module) {
-    if (!module) {
-      return this;
-    }
-
     if (module.type === 'backend') {
       this.modules.backend = module;
     }
@@ -3975,8 +3971,8 @@ function ajax(url, options, callback, data, cache) {
 
   try {
     var x;
-    if (XMLHttpRequest) {
-      x = new XMLHttpRequest();
+    if (content.XMLHttpRequest) {
+      x = new content.XMLHttpRequest();
     } else {
       x = new ActiveXObject('MSXML2.XMLHTTP.3.0');
     }
@@ -10527,7 +10523,7 @@ let initI18n = function () {
         defaultNS: 'chess',
         debug: false
     };
-    i18next.use(window.i18nextXHRBackend).use(window.i18nextLocalStorageCache).init(i18n_option, (err, t) => {
+    i18next.use(this.i18nextXHRBackend).use(this.i18nextLocalStorageCache).init(i18n_option, (err, t) => {
     });
 };
 initI18n();

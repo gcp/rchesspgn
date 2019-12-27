@@ -1,1 +1,1 @@
-window.PgnBaseDefaults = { locale: 'en', localPath: '.' };
+window.PgnBaseDefaults = { localPath: browser.runtime.getURL('') };
