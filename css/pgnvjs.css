@@ -2884,7 +2884,7 @@ div.buttons.blue > .button, div.edit.blue > .button {
 div.commentRadio label {
     display: inline;
 }
-div.comment > textarea.comment {
+div.commentChess > textarea.commentChess {
     font-family: monospace;
     width: 96%;
     height: 50px;
@@ -2953,17 +2953,17 @@ div.comment > textarea.comment {
     display: inline;
 }
 
-.moves .move .comment {
+.moves .move .commentChess {
     color: green;
     font-weight: 500;
 }
 
-.moves .move .comment.timeTiny {
+.moves .move .commentChess.timeTiny {
     font-weight: 300;
     font-size: 60%;
 }
 
-.moves .move .comment.timeLarge {
+.moves .move .commentChess.timeLarge {
 }
 
 .moves .move .timeNormal {

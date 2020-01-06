@@ -10842,7 +10842,7 @@ var pgnBase = function (boardId, configuration) {
             ma.value = "after";
             ma.name = "radio";
             createEle("label", null, "labelAfterComment", theme, radio).appendChild(document.createTextNode("After"));
-            createEle("textarea", null, "comment", theme, commentDiv);
+            createEle("textarea", null, "commentChess", theme, commentDiv);
         };
         if (hasMarkup()) {
             if (boardId.header) {
@@ -10951,7 +10951,7 @@ var pgnBase = function (boardId, configuration) {
                 let nagMenu = createEle('div', 'nagMenu' + buttonsId, 'nagMenu', theme, divBoard);
                 generateNagMenu(nagMenu);
                 var pgnDiv = createEle("textarea", "pgn" + buttonsId, "pgn", theme, divBoard);
-                var commentBoardDiv = createEle("div", "comment" + buttonsId, "comment", theme, divBoard);
+                var commentBoardDiv = createEle("div", "comment" + buttonsId, "commentChess", theme, divBoard);
                 generateCommentDiv(commentBoardDiv);
                 // Bind the paste key ...
                 addEventListener("pgn" + buttonsId, 'mousedown', function (e) {
@@ -11071,7 +11071,7 @@ var pgnBase = function (boardId, configuration) {
          * @returns {HTMLElement} the new created span with the comment as text
          */
         var generateCommentSpan = function (comment, clazz) {
-            var span = createEle('span', null, "comment " + clazz);
+            var span = createEle('span', null, "commentChess " + clazz);
             if (comment && (typeof comment == "string")) {
                 span.appendChild(document.createTextNode(" " + comment + " "));
             }
@@ -11228,15 +11228,15 @@ var pgnBase = function (boardId, configuration) {
             if (!~myMove) return;
             if (myMove.commentAfter) {
                 document.querySelector('#' + boardId + " input.afterComment").checked = true;
-                document.querySelector('#' + boardId + " textarea.comment").value = myMove.commentAfter;
+                document.querySelector('#' + boardId + " textarea.commentChess").value = myMove.commentAfter;
             } else if (myMove.commentBefore) {
                 document.querySelector('#' + boardId + " input.beforeComment").checked = true;
-                document.querySelector('#' + boardId + " textarea.comment").value = myMove.commentBefore;
+                document.querySelector('#' + boardId + " textarea.commentChess").value = myMove.commentBefore;
             } else if (myMove.commentMove) {
                 document.querySelector('#' + boardId + " input.moveComment").checked = true;
-                document.querySelector('#' + boardId + " textarea.comment").value = myMove.commentMove;
+                document.querySelector('#' + boardId + " textarea.commentChess").value = myMove.commentMove;
             } else {
-                document.querySelector('#' + boardId + " textarea.comment").value = "";
+                document.querySelector('#' + boardId + " textarea.commentChess").value = "";
             }
         }
 
@@ -11522,9 +11522,9 @@ var pgnBase = function (boardId, configuration) {
                     makeMove(null, that.currentMove, fen);
                 });
                 document.querySelector('#' + boardId + ' .pgn').style.display = 'none';
-                document.querySelector('#comment' + buttonsId + " textarea.comment").onchange = function () {
+                document.querySelector('#comment' + buttonsId + " textarea.commentChess").onchange = function () {
                     function commentText() {
-                        return " " + document.querySelector('#' + 'comment' + buttonsId + " textarea.comment").value + " ";
+                        return " " + document.querySelector('#' + 'comment' + buttonsId + " textarea.commentChess").value + " ";
                     }
 
                     let text = commentText();
@@ -11552,7 +11552,7 @@ var pgnBase = function (boardId, configuration) {
                         } else if (checked === "move") {
                             text = that.mypgn.getMove(that.currentMove).commentMove;
                         }
-                        document.querySelector('#' + boardId + " textarea.comment").value = text;
+                        document.querySelector('#' + boardId + " textarea.commentChess").value = text;
                     };
                 }
             }
